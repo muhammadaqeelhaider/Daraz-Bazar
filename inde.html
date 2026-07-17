@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daraz Deals Hub | Premium Affiliate Store</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- FLASH DEALS TIMED PROMO -->
+  <div class="promo-banner">
+    <span>⚡ MEGA SALE IS LIVE! Get exclusive Daraz discount vouchers.</span>
+    <span class="countdown-box">Ends In: <span id="countdown">04:00:00</span></span>
+  </div>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <h2>Daraz Deals Hub</h2>
+    </div>
+
+    <div class="header-actions">
+      <div class="search">
+        <input type="text" id="search" placeholder="Search amazing products...">
+      </div>
+      <button class="wishlist-btn-badge" id="wishlistToggleBtn">
+        <i class="fa-regular fa-heart"></i>
+        <span class="badge-count" id="wishlistCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO ZONE -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Pakistan's Best Daraz Discounts Deals</h1>
+      <p>Discover trending products, exclusive discounts, and premium shopping recommendations updated every single hour.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn1">Explore Deals</a>
+        <a href="https://wa.me/923286171109" target="_blank" class="btn2">Join WhatsApp Group</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900" alt="Hero Image">
+    </div>
+  </section>
+
+  <!-- STATS PANEL -->
+  <section class="grid-layout negative-margin">
+    <div class="grid-box">
+      <h2>500+</h2>
+      <p>Verified Products</p>
+    </div>
+    <div class="grid-box">
+      <h2>100+</h2>
+      <p>Daily Prime Deals</p>
+    </div>
+    <div class="grid-box">
+      <h2>24/7</h2>
+      <p>Real-Time Updates</p>
+    </div>
+    <div class="grid-box">
+      <h2>99%</h2>
+      <p>Happy Visitors</p>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CATEGORIES -->
+  <div class="category-container">
+    <div class="category">
+      <button class="active" data-cat="all">All Deals</button>
+      <button data-cat="electronics">Electronics</button>
+      <button data-cat="fashion">Fashion</button>
+      <button data-cat="beauty">Beauty & Cosmetics</button>
+      <button data-cat="home">Home & Living</button>
+    </div>
+  </div>
+
+  <div class="title" id="deals-title">
+    <h2>Trending Deals</h2>
+    <p>Hand-picked products featuring unmatched discount cuts.</p>
+  </div>
+
+  <!-- PRODUCTS GRID -->
+  <div class="products" id="products">
+    <!-- Card 1 -->
+    <div class="card" data-category="electronics" data-id="1">
+      <div class="badge">-82%</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://www.daraz.pk/"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/256fd2b9-cdcb-44a1-891f-cb5692ced852.jpg" alt="Wireless Earbuds">
+      </div>
+      <div class="info">
+        <h3>Wireless Bluetooth Earbuds</h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 723</h2><del>PKR 4,000</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X1jx8?cc/" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card" data-category="fashion" data-id="3">
+      <div class="badge">-78%</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://www.daraz.pk/"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/cb7d4497-eb82-4244-b4b6-502448f8eea9.jpg" alt="Smart Watch">
+      </div>
+      <div class="info">
+        <h3>Premium Shirt and Trouser </h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 799</h2><del>PKR 3,599</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X199I?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card" data-category="electronics" data-id="3">
+      <div class="badge">Sale</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://www.daraz.pk/"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/d4b90e0d-8c02-4fd9-bc49-b8b7cfd91c07.jpg" alt="Casual Shirt">
+      </div>
+      <div class="info">
+        <h3>CCTV 1080P Full Hd Camera</h3>
+        <div class="rating">★★★★☆</div>
+        <div class="price"><h2>PKR 2,779</h2><del>PKR 12,499</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X1kdI?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card" data-category="beauty" data-id="4">
+      <div class="badge">New</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://www.daraz.pk/"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/121c29e8-ccd4-47cc-b5a3-37b7e2209acd.jpg" alt="Beauty Soap">
+      </div>
+      <div class="info">
+        <h3>Beauty Soap </h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 404</h2><del>PKR 425</del></div>
+        <div class="buy-btn-group">
+          <a href="hhttps://s.daraz.pk/s.X1kSr?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+     <!-- Card 5  -->
+    <div class="card" data-category="electronics" data-id="4">
+      <div class="badge">New</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://www.daraz.pk/"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">       <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/ac886a2e-1ed7-4a81-ac76-24713dce9af7.jpg" alt="Beauty Kit">
+    </div>
+      <div class="info">
+        <h3>T9 Vintage Hair Trimmer  </h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 799</h2><del>PKR 1,600</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X1kqW?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- WISHLIST DRAWER -->
+  <div class="wishlist-overlay" id="wishlistOverlay"></div>
+  <div class="wishlist-drawer" id="wishlistDrawer">
+    <div class="wishlist-header">
+      <h3>My Wishlist</h3>
+      <button class="wishlist-close" id="wishlistCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="wishlist-items" id="wishlistItemsContainer">
+      <div class="wishlist-empty">
+        <i class="fa-regular fa-heart"></i>
+        <p>Your wishlist is empty!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-box">
+    <h3>Subscribe to VIP Deals</h3>
+    <p>Get instant alerts when premium vouchers drop</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();">
+      <input type="email" placeholder="Enter your email address...">
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo" style="justify-content: center; margin-bottom: 15px;">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <h2 style="color: #fff;">Daraz Deals Hub</h2>
+    </div>
+    <p>© 2026 Daraz Affiliate Deals Hub. Developed for maximum performance.</p>
+    <div class="socials">
+      <!-- Facebook Link -->
+      <a href="https://www.facebook.com/profile.php?id=61591973821373" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-facebook fa-xl"></i>
+      </a>
+
+      <!-- WhatsApp Link -->
+      <a href="https://wa.me/923286171109" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-whatsapp fa-xl"></i>
+      </a>
+
+      <!-- Telegram Link -->
+      <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-telegram fa-xl"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- FLOATING UTILITIES -->
+  <button id="topBtn"><i class="fa-solid fa-arrow-up"></i></button>
+  <a href="https://wa.me/923286171109" class="whatsapp-float" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+  <button class="theme-float" id="theme"><i class="fa-solid fa-moon"></i></button>
+
+  <!-- External JS -->
+  <script src="script.js"></script>
+</body>
+</html>
