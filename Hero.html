@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daraz Deals Hub | Premium Affiliate Store</title>
+  
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+  <!-- Embedded CSS Stylesheet -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --primary: #f57224;
+      --secondary: #ff914d;
+      --bg: #f7f8fc;
+      --card: #ffffff;
+      --text: #222;
+      --shadow: 0 15px 45px rgba(0,0,0,.06);
+      --border: rgba(0,0,0,0.06);
+      --footer-bg: #121212;
+      --footer-text: #ffffff;
+      --toast-bg: #333;
+      --toast-text: #fff;
+    }
+
+    /* DARK MODE SETTINGS */
+    [data-theme="dark"] {
+      --bg: #0f0f11;
+      --card: #18181c;
+      --text: #f5f5f5;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 15px 40px rgba(0,0,0,.35);
+      --toast-bg: #f5f5f5;
+      --toast-text: #111;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loader {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 7px solid var(--border);
+      border-top: 7px solid var(--primary);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* FLASH SALE BANNER */
+    .promo-banner {
+      background: linear-gradient(90deg, #ff4e00, #ec9f05);
+      color: #fff;
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      z-index: 1000;
+      position: relative;
+    }
+
+    .countdown-box {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 7%;
+      background: var(--card);
+      box-shadow: 0 5px 25px rgba(0,0,0,.03);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 15px;
+      transition: background 0.4s, border 0.4s;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      font-size: 30px;
+      color: var(--primary);
+    }
+
+    .logo h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search {
+      position: relative;
+    }
+
+    .search input {
+      width: 300px;
+      padding: 13px 25px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 50px;
+      font-size: 14px;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .search input:focus {
+      outline: none;
+      background: var(--card);
+      box-shadow: 0 0 0 4px rgba(245,114,36,.15);
+      border-color: var(--primary);
+    }
+
+    .wishlist-btn-badge {
+      position: relative;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .wishlist-btn-badge:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .wishlist-btn-badge .badge-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff3d3d;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid var(--card);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 80px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #f57224 0%, #ff7a2d 50%, #ffa153 100%);
+      color: #fff;
+      overflow: hidden;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 10.01%);
+      background-size: 20px 20px;
+      opacity: 0.25;
+    }
+
+    .hero-left {
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-left h1 {
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .hero-left p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      opacity: 0.95;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btns a {
+      text-decoration: none;
+      padding: 15px 35px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .btn1 {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn2 {
+      border: 2px solid #fff;
+      color: #fff;
+    }
+
+    .btn1:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+    }
+
+    .btn2:hover {
+      background: #fff;
+      color: var(--primary);
+      transform: translateY(-5px);
+    }
+
+    .hero-right {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-right img {
+      width: 460px;
+      max-width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: float 5s ease-in-out infinite;
+      object-fit: cover;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* GRIDS OVERVIEW */
+    .grid-layout {
+      padding: 50px 7%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .negative-margin {
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .grid-box {
+      background: var(--card);
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .grid-box:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+    }
+
+    .grid-box h2 {
+      color: var(--primary);
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .grid-box h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .grid-box p {
+      color: var(--text);
+      opacity: 0.7;
+      font-size: 14px;
+    }
+
+    /* CATEGORIES SECTION */
+    .category-container {
+      text-align: center;
+      padding: 35px 7% 10px;
+    }
+
+    .category {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .category button {
+      padding: 12px 24px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,.03);
+      transition: all 0.3s ease;
+    }
+
+    .category button:hover,
+    .category button.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(245,114,36,.25);
+    }
+
+    /* SECTION TITLE */
+    .title {
+      text-align: center;
+      padding: 50px 7% 10px;
+    }
+
+    .title h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .title p {
+      color: var(--text);
+      opacity: 0.7;
+      font-size: 16px;
+    }
+
+    /* PRODUCTS GRID */
+    .products {
+      padding: 25px 7% 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.12);
+      border-color: var(--primary);
+    }
+
+    .badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #ff3d3d;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 2;
+      box-shadow: 0 4px 10px rgba(255, 61, 61, 0.3);
+    }
+
+    .card-actions {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .circle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,.08);
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .circle-btn:hover {
+      transform: scale(1.1);
+      color: var(--primary);
+    }
+
+    .fav.active {
+      background: #ff4757;
+      color: #fff;
+      border-color: #ff4757;
+    }
+
+    .img-container {
+      width: 100%;
+      height: 240px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      transition: transform 0.3s;
+    }
+
+    .card:hover .img-container img {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .info {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .info h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .rating {
+      color: #ffc107;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 20px;
+      margin-top: auto;
+    }
+
+    .price h2 {
+      color: var(--primary);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .price del {
+      color: #999;
+      font-size: 14px;
+    }
+
+    .buy-btn-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .buy {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(245,114,36,0.2);
+      transition: .3s;
+    }
+
+    .buy:hover {
+      background: #e66417;
+      box-shadow: 0 6px 20px rgba(245,114,36,0.3);
+    }
+
+    /* WISHLIST DRAWER */
+    .wishlist-drawer {
+      position: fixed;
+      top: 0;
+      right: -380px;
+      width: 360px;
+      max-width: 100%;
+      height: 100%;
+      background: var(--card);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+      z-index: 10000;
+      transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+
+    .wishlist-drawer.open {
+      right: 0;
+    }
+
+    .wishlist-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wishlist-header h3 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .wishlist-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .wishlist-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .wishlist-empty {
+      text-align: center;
+      color: #888;
+      margin-top: 50px;
+    }
+
+    .wishlist-empty i {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #ddd;
+    }
+
+    .wish-item {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wish-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #eee;
+    }
+
+    .wish-item-info {
+      flex: 1;
+    }
+
+    .wish-item-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .wish-item-info p {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .wish-item-remove {
+      background: none;
+      border: none;
+      color: #ff3d3d;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+
+    .wish-item-remove:hover {
+      transform: scale(1.15);
+    }
+
+    .wishlist-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      display: none;
+      backdrop-filter: blur(4px);
+    }
+
+    .wishlist-overlay.open {
+      display: block;
+    }
+
+    /* TOAST NOTIFICATIONS */
+    .toast-container {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: var(--toast-bg);
+      color: var(--toast-text);
+      padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: toastIn 0.3s forwards, toastOut 0.3s 2.7s forwards;
+    }
+
+    @keyframes toastIn {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes toastOut {
+      to { transform: translateY(-20px); opacity: 0; }
+    }
+
+    /* NEWSLETTER */
+    .newsletter-box {
+      background: var(--card);
+      max-width: 650px;
+      margin: 60px auto;
+      padding: 50px 30px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter-form {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-form input {
+      padding: 15px 25px;
+      width: 320px;
+      max-width: 100%;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      box-shadow: 0 5px 15px rgba(0,0,0,.02);
+      transition: 0.3s;
+    }
+
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--card);
+    }
+
+    .newsletter-form button {
+      padding: 15px 35px;
+      background: #f57224;
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(245,114,36,0.25);
+    }
+
+    .newsletter-form button:hover {
+      background: #e66417;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 60px 7% 40px;
+      margin-top: 80px;
+      position: relative;
+      border-top: 3px solid var(--primary);
+    }
+
+    footer p {
+      opacity: 0.7;
+      font-size: 15px;
+    }
+
+    footer .socials {
+      margin: 25px 0 35px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    footer i {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    footer i:hover {
+      color: var(--primary);
+      transform: translateY(-4px);
+    }
+
+    /* FLOATING UTILITIES */
+    #topBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+      transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #topBtn:hover {
+      background: #e66417;
+      transform: translateY(-5px) scale(1.05);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 95px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 99;
+      text-decoration: none;
+      transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    /* FLOATING MOON/SUN BUTTON */
+    .theme-float {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+      transition: .3s;
+    }
+
+    .theme-float:hover {
+      transform: scale(1.1) translateY(-5px);
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* RESPONSIVE HEADERS */
+    @media (max-width: 900px) {
+      header {
+        padding: 20px 4%;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .search {
+        flex-grow: 1;
+      }
+      .search input {
+        width: 100%;
+      }
+      .hero-left h1 {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- FLASH DEALS TIMED PROMO -->
+  <div class="promo-banner">
+    <span>⚡ MEGA SALE IS LIVE! Get exclusive Daraz discount vouchers.</span>
+    <span class="countdown-box">Ends In: <span id="countdown">04:00:00</span></span>
+  </div>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <h2>Daraz Deals Hub</h2>
+    </div>
+
+    <div class="header-actions">
+      <div class="search">
+        <input type="text" id="search" placeholder="Search amazing products...">
+      </div>
+      <button class="wishlist-btn-badge" id="wishlistToggleBtn">
+        <i class="fa-regular fa-heart"></i>
+        <span class="badge-count" id="wishlistCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO ZONE -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Pakistan's Best Daraz Discounts Deals</h1>
+      <p>Discover trending products, exclusive discounts, and premium shopping recommendations updated every single hour.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn1">Explore Deals</a>
+        <a href="https://wa.me/923286171109" target="_blank">Join WhatsApp Group</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900" alt="Hero Image">
+    </div>
+  </section>
+
+  <!-- STATS PANEL -->
+  <section class="grid-layout negative-margin">
+    <div class="grid-box">
+      <h2>500+</h2>
+      <p>Verified Products</p>
+    </div>
+    <div class="grid-box">
+      <h2>100+</h2>
+      <p>Daily Prime Deals</p>
+    </div>
+    <div class="grid-box">
+      <h2>24/7</h2>
+      <p>Real-Time Updates</p>
+    </div>
+    <div class="grid-box">
+      <h2>99%</h2>
+      <p>Happy Visitors</p>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CATEGORIES -->
+  <div class="category-container">
+    <div class="category">
+      <button class="active" data-cat="all">All Deals</button>
+      <button data-cat="electronics">Electronics</button>
+      <button data-cat="fashion">Fashion</button>
+      <button data-cat="beauty">Beauty & Cosmetics</button>
+      <button data-cat="home">Home & Living</button>
+    </div>
+  </div>
+
+  <div class="title" id="deals-title">
+    <h2>Trending Deals</h2>
+    <p>Hand-picked products featuring unmatched discount cuts.</p>
+  </div>
+
+  <!-- PRODUCTS GRID -->
+  <div class="products" id="products">
+    <!-- Card 1 -->
+    <div class="card" data-category="electronics" data-id="1">
+      <div class="badge">-82%</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://s.daraz.pk/s.X1jx8?cc/"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/256fd2b9-cdcb-44a1-891f-cb5692ced852.jpg" alt="Wireless Earbuds">
+      </div>
+      <div class="info">
+        <h3>Wireless Bluetooth Earbuds</h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 723</h2><del>PKR 4,000</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X1jx8?cc/" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card" data-category="fashion" data-id="2">
+      <div class="badge">-78%</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://s.daraz.pk/s.X199I?cc"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/cb7d4497-eb82-4244-b4b6-502448f8eea9.jpg" alt="Smart Watch">
+      </div>
+      <div class="info">
+        <h3>Premium Shirt and Trouser </h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 799</h2><del>PKR 3,599</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X199I?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card" data-category="electronics" data-id="3">
+      <div class="badge">Sale</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://s.daraz.pk/s.X1kdI?cc"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/d4b90e0d-8c02-4fd9-bc49-b8b7cfd91c07.jpg" alt="Casual Shirt">
+      </div>
+      <div class="info">
+        <h3>CCTV 1080P Full Hd Camera</h3>
+        <div class="rating">★★★★☆</div>
+        <div class="price"><h2>PKR 2,779</h2><del>PKR 12,499</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X1kdI?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card" data-category="beauty" data-id="4">
+      <div class="badge">New</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://s.daraz.pk/s.X1kSr?cc"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/121c29e8-ccd4-47cc-b5a3-37b7e2209acd.jpg" alt="Beauty Soap">
+      </div>
+      <div class="info">
+        <h3>Beauty Soap </h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 404</h2><del>PKR 425</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X1kSr?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+     <!-- Card 5  -->
+    <div class="card" data-category="electronics" data-id="5">
+      <div class="badge">New</div>
+      <div class="card-actions">
+        <button class="circle-btn fav"><i class="fa-regular fa-heart"></i></button>
+        <button class="circle-btn share" data-link="https://s.daraz.pk/s.X1kqW?cc"><i class="fa-solid fa-share-nodes"></i></button>
+      </div>
+      <div class="img-container">       
+        <img src="https://i.supaimg.com/101dfb6d-fec2-4481-9849-50081716f107/ac886a2e-1ed7-4a81-ac76-24713dce9af7.jpg" alt="Beauty Kit">
+      </div>
+      <div class="info">
+        <h3>T9 Vintage Hair Trimmer  </h3>
+        <div class="rating">★★★★★</div>
+        <div class="price"><h2>PKR 799</h2><del>PKR 1,600</del></div>
+        <div class="buy-btn-group">
+          <a href="https://s.daraz.pk/s.X1kqW?cc" target="_blank" class="buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-box">
+    <h3>Subscribe to VIP Deals</h3>
+    <p>Get instant alerts when premium vouchers drop</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();">
+      <input type="email" placeholder="Enter your email address...">
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo" style="justify-content: center; margin-bottom: 15px;">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <h2 style="color: #fff;">Daraz Deals Hub</h2>
+    </div>
+    <p>© 2026 Daraz Affiliate Deals Hub. Developed for maximum performance.</p>
+    <div class="socials">
+      <a href="https://www.facebook.com/profile.php?id=61591973821373" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-facebook fa-xl"></i>
+      </a>
+      <a href="https://wa.me/923286171109" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-whatsapp fa-xl"></i>
+      </a>
+      <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-telegram fa-xl"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- FLOATING UTILITIES -->
+  <button id="topBtn"><i class="fa-solid fa-arrow-up"></i></button>
+  <a href="https://wa.me/923286171109" class="whatsapp-float" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+  <button class="theme-float" id="theme"><i class="fa-solid fa-moon"></i></button>
+
+  <!-- Embedded JavaScript Application Logic -->
+  <script>
+    // 1. LOADER CONTROLLER
+    window.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+      }, 400);
+    });
+
+    // 2. DARK / LIGHT THEME TOGGLE
+    const themeBtn = document.getElementById('theme');
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        showToast('Switched to Light Theme!', 'fa-sun');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        showToast('Switched to Dark Theme!', 'fa-moon');
+      }
+    });
+
+    // 3. SEARCH AND FILTER ENGINE
+    const searchInput = document.getElementById('search');
+    const catButtons = document.querySelectorAll('.category button');
+    const cards = document.querySelectorAll('.card');
+
+    let activeCategory = 'all';
+    let searchQuery = '';
+
+    function filterProducts() {
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        const cardTitle = card.querySelector('.info h3').textContent.toLowerCase();
+        
+        const matchesCategory = (activeCategory === 'all' || cardCat === activeCategory);
+        const matchesSearch = cardTitle.includes(searchQuery);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      filterProducts();
+    });
+
+    catButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        catButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        activeCategory = button.getAttribute('data-cat');
+        filterProducts();
+      });
+    });
+
+    // 4. WISHLIST MANAGEMENT SYSTEM
+    const wishlistToggleBtn = document.getElementById('wishlistToggleBtn');
+    const wishlistCloseBtn = document.getElementById('wishlistCloseBtn');
+    const wishlistDrawer = document.getElementById('wishlistDrawer');
+    const wishlistOverlay = document.getElementById('wishlistOverlay');
+    const wishlistCount = document.getElementById('wishlistCount');
+    const wishlistItemsContainer = document.getElementById('wishlistItemsContainer');
+
+    let wishlist = [];
+
+    // Open/Close Drawer Toggle
+    const toggleDrawer = () => {
+      wishlistDrawer.classList.toggle('open');
+      wishlistOverlay.classList.toggle('open');
+    };
+    wishlistToggleBtn.addEventListener('click', toggleDrawer);
+    wishlistCloseBtn.addEventListener('click', toggleDrawer);
+    wishlistOverlay.addEventListener('click', toggleDrawer);
+
+    // Global Fav Button click assignment
+    document.querySelectorAll('.card .fav').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.card');
+        const id = card.getAttribute('data-id');
+        const title = card.querySelector('.info h3').textContent;
+        const price = card.querySelector('.price h2').textContent;
+        const img = card.querySelector('img').src;
+
+        btn.classList.toggle('active');
+        const heartIcon = btn.querySelector('i');
+        
+        if (btn.classList.contains('active')) {
+          heartIcon.classList.replace('fa-regular', 'fa-solid');
+          addToWishlist({ id, title, price, img });
+        } else {
+          heartIcon.classList.replace('fa-solid', 'fa-regular');
+          removeFromWishlist(id);
+        }
+      });
+    });
+   function addToWishlist(item) {
+      wishlist.push(item);
+      updateWishlistUI();
+      showToast(`${item.title} added to Wishlist!`, 'fa-heart');
+    }
+
+    function removeFromWishlist(id) {
+      wishlist = wishlist.filter(item => item.id !== id);
+      
+      // Untoggle main grid button representation if alive
+      const matchedCard = document.querySelector(`.card[data-id="${id}"]`);
+      if (matchedCard) {
+        const favBtn = matchedCard.querySelector('.fav');
+        if (favBtn) {
+          favBtn.classList.remove('active');
+          const heartIcon = favBtn.querySelector('i');
+          if (heartIcon) heartIcon.classList.replace('fa-solid', 'fa-regular');
+        }
+      }
+      
+      updateWishlistUI();
+      showToast('Removed from Wishlist.', 'fa-trash');
+    }
+
+    function updateWishlistUI() {
+      wishlistCount.textContent = wishlist.length;
+      if (wishlist.length === 0) {
+        wishlistItemsContainer.innerHTML = `
+          <div class="wishlist-empty">
+            <i class="fa-regular fa-heart"></i>
+            <p>Your wishlist is empty!</p>
+          </div>`;
+        return;
+      }
+
+      wishlistItemsContainer.innerHTML = wishlist.map(item => `
+        <div class="wish-item">
+          <img src="${item.img}" alt="${item.title}">
+          <div class="wish-item-info">
+            <h4>${item.title}</h4>
+            <p>${item.price}</p>
+          </div>
+          <button class="wish-item-remove" onclick="removeFromWishlist('${item.id}')">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // 5. NATIVE LINK SHARING ENGINE
+    document.querySelectorAll('.share').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const link = btn.getAttribute('data-link');
+        navigator.clipboard.writeText(link).then(() => {
+          showToast('Affiliate Link copied to clipboard!', 'fa-share-nodes');
+        }).catch(() => {
+          showToast('Failed to copy link.', 'fa-xmark');
+        });
+      });
+    });
+
+    // 6. TOAST CREATOR
+    function showToast(message, iconClass = 'fa-info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => { toast.remove(); }, 3000);
+    }
+
+    // 7. COUNTDOWN TIMER PROMO
+    function startCountdown() {
+      let time = 4 * 60 * 60; // 4 Hours transformed into total seconds
+      const display = document.getElementById('countdown');
+      
+      const timer = setInterval(() => {
+        let hours = Math.floor(time / 3600);
+        let minutes = Math.floor((time % 3600) / 60);
+        let seconds = time % 60;
+
+        display.textContent = 
+          `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (--time < 0) clearInterval(timer);
+      }, 1000);
+    }
+    startCountdown();
+
+    // 8. BACK TO TOP SCROLL UTILITY
+    const topBtn = document.getElementById('topBtn');
+    window.addEventListener('scroll', () => {
+      topBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    });
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html> 
